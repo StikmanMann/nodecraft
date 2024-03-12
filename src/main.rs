@@ -1,5 +1,10 @@
-use iced::{widget, Sandbox};
-
+use crate::widget::*;
+use iced::{
+    widget::{button, container, row, text},
+    Length, Sandbox,
+};
+use widget::node::node;
+mod widget;
 struct Counter {
     // This will be our state of the counter app
     // a.k.a the current count value
@@ -16,7 +21,6 @@ enum Message {
 
 // Implement Sandbox for our Counter
 impl Sandbox for Counter {
-
     // alias our Message enum with the
     // Sandbox's Message type
     type Message = Message;
@@ -42,21 +46,21 @@ impl Sandbox for Counter {
 
     fn view(&self) -> iced::Element<'_, Self::Message> {
         // create the View Logic (UI)
-        let rw = widget::row![
-            widget::button("-").on_press(Message::DecrementCount),
-            widget::text(self.count),
-            widget::button("+").on_press(Message::IncrementCount)
+        let rw = row![
+            button("-").on_press(Message::DecrementCount),
+            text(self.count),
+            button("+").on_press(Message::IncrementCount),
+            node(vec!["Moin".to_string()], Vec::new(), text("hallo").into())
         ];
-        widget::container(rw)
+        container(rw)
             .center_x()
             .center_y()
-            .width(iced::Length::Fill)
-            .height(iced::Length::Fill)
+            .width(Length::Fill)
+            .height(Length::Fill)
             .into()
     }
 }
 
 fn main() -> Result<(), iced::Error> {
-    // run the app from main function
     Counter::run(iced::Settings::default())
 }
