@@ -3,7 +3,7 @@ use iced::{
     widget::{button, container, row, text},
     Length, Sandbox,
 };
-use widget::node::node;
+use widget::node::Node;
 mod widget;
 struct Counter {
     // This will be our state of the counter app
@@ -50,7 +50,7 @@ impl Sandbox for Counter {
             button("-").on_press(Message::DecrementCount),
             text(self.count),
             button("+").on_press(Message::IncrementCount),
-            node(vec!["Moin".to_string()], Vec::new(), text("hallo").into())
+            Node::new("Hello World".to_string(), vec![], vec![])
         ];
         container(rw)
             .center_x()
